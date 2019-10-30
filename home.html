@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>Meal Planner | Home</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body>
+  <!-- Navigation -->
+
+  <!-- The Meal Planner link should actually navigate users to the home page if they are authenticated, 
+  and the login page if they are not -->
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="home.html" class="brand-logo">Meal Planner</a>
+    </div>
+  </nav>
+  <!-- End Navigation -->
+
+  <!-- Home section, here the plan is to display the current week's meals by default
+       with a drop down section for the user to choose a past or future week; each meal will
+       be represented by a card(with sections for breakfast lunch and dinner) maybe we can 
+       show total calories for the day or other stats as well, the cards will either be displayed
+       in a list form or maybe a carousel depending on what looks better. When a user selects a card
+       they are directed to that card's page where they can add meals to it(add floating action button) -->
+
+  <!-- TODO add a button to take user to a print page, this page will allow a user to select a date range
+      and then print out all ingredients required for those meals in that date range. Shopping list -->
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container center">
+      <h1 class="center">Weekly Schedule</h1>
+      <div class="row">
+        
+        <div class="col s12 l6">
+          <div class="card">
+           <a href="edit.html" class="btn-floating right waves-effect waves-light red"><i class="material-icons">edit</i></a>
+            <div class="card-content">
+              <span class="card-title">Monday - 10/28/2019</span>
+              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I
+                require little markup to use effectively.</p>
+            </div>
+            <div class="card-tabs">
+              <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#breakfast0">Breakfast</a></li>
+                <li class="tab"><a href="#lunch0">Lunch</a></li>
+                <li class="tab"><a href="#dinner0">Dinner</a></li>
+              </ul>
+            </div>
+            <div class="card-content grey lighten-4">
+              <div id="breakfast0">Breakfast</div>
+              <div id="lunch0">Lunch</div>
+              <div id="dinner0">Dinner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 l6">
+          <div class="card">
+            <a class="btn-floating right waves-effect waves-light red"><i class="material-icons">edit</i></a>
+            <div class="card-content">
+              <span class="card-title">Tuesday</span>
+              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I
+                require little markup to use effectively.</p>
+            </div>
+            <div class="card-tabs">
+              <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#breakfast1">Breakfast</a></li>
+                <li class="tab"><a href="#lunch1">Lunch</a></li>
+                <li class="tab"><a href="#dinner1">Dinner</a></li>
+              </ul>
+            </div>
+            <div class="card-content grey lighten-4">
+              <div id="breakfast1">Breakfast</div>
+              <div id="lunch1">Lunch</div>
+              <div id="dinner1">Dinner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 l6">
+          <div class="card">
+            <a class="btn-floating right waves-effect waves-light red"><i class="material-icons">edit</i></a>
+            <div class="card-content">
+              <span class="card-title">Wednesday</span>
+              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I
+                require little markup to use effectively.</p>
+            </div>
+            <div class="card-tabs">
+              <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#breakfast2">Breakfast</a></li>
+                <li class="tab"><a href="#lunch2">Lunch</a></li>
+                <li class="tab"><a href="#dinner2">Dinner</a></li>
+              </ul>
+            </div>
+            <div class="card-content grey lighten-4">
+              <div id="breakfast2">Breakfast</div>
+              <div id="lunch2">Lunch</div>
+              <div id="dinner2">Dinner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 l6">
+          <div class="card">
+            <a class="btn-floating right waves-effect waves-light red"><i class="material-icons">edit</i></a>
+            <div class="card-content">
+              <span class="card-title">Thursday</span>
+              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I
+                require little markup to use effectively.</p>
+            </div>
+            <div class="card-tabs">
+              <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#breakfast3">Breakfast</a></li>
+                <li class="tab"><a href="#lunch3">Lunch</a></li>
+                <li class="tab"><a href="#dinner3">Dinner</a></li>
+              </ul>
+            </div>
+            <div class="card-content grey lighten-4">
+              <div id="breakfast3">Breakfast</div>
+              <div id="lunch3">Lunch</div>
+              <div id="dinner3">Dinner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 l6">
+          <div class="card">
+            <a class="btn-floating right waves-effect waves-light red"><i class="material-icons">edit</i></a>
+            <div class="card-content">
+              <span class="card-title">Friday</span>
+              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I
+                require little markup to use effectively.</p>
+            </div>
+            <div class="card-tabs">
+              <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#breakfast4">Breakfast</a></li>
+                <li class="tab"><a href="#lunch4">Lunch</a></li>
+                <li class="tab"><a href="#dinner4">Dinner</a></li>
+              </ul>
+            </div>
+            <div class="card-content grey lighten-4">
+              <div id="breakfast4">Breakfast</div>
+              <div id="lunch4">Lunch</div>
+              <div id="dinner4">Dinner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 l6">
+          <div class="card">
+            <a class="btn-floating right waves-effect waves-light red"><i class="material-icons">edit</i></a>
+            <div class="card-content">
+              <span class="card-title">Saturday</span>
+              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I
+                require little markup to use effectively.</p>
+            </div>
+            <div class="card-tabs">
+              <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#breakfast5">Breakfast</a></li>
+                <li class="tab"><a href="#lunch5">Lunch</a></li>
+                <li class="tab"><a href="#dinner5">Dinner</a></li>
+              </ul>
+            </div>
+            <div class="card-content grey lighten-4">
+              <div id="breakfast5">Breakfast</div>
+              <div id="lunch5">Lunch</div>
+              <div id="dinner5">Dinner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 l6">
+          <div class="card">
+            <a class="btn-floating right waves-effect waves-light red"><i class="material-icons">edit</i></a>
+            <div class="card-content">
+              <span class="card-title">Sunday</span>
+              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I
+                require little markup to use effectively.</p>
+            </div>
+            <div class="card-tabs">
+              <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#breakfast6">Breakfast</a></li>
+                <li class="tab"><a href="#lunch6">Lunch</a></li>
+                <li class="tab"><a href="#dinner6">Dinner</a></li>
+              </ul>
+            </div>
+            <div class="card-content grey lighten-4">
+              <div id="breakfast6">Breakfast</div>
+              <div id="lunch6">Lunch</div>
+              <div id="dinner6">Dinner</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+</body>
+
+</html>
