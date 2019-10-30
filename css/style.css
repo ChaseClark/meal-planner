@@ -12,3 +12,8 @@
 .icon-block .material-icons {
 	font-size: inherit;
 }
+
+.uniform-btn-width {
+  width: 150px;
+  text-align: center;
+}
