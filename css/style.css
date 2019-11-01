@@ -19,5 +19,13 @@
 }
 
 #date{
-  width: 50%;
+  width: 30%;
 }
+
+.input-field{
+  margin: 0 30%;
+}
+
+/* #dropdown{
+  visibility: hidden;
+} */

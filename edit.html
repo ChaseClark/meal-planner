@@ -22,25 +22,27 @@
   <!-- End Navigation -->
 
   <!-- Edit Section -->
+
+  <!-- TODO: Add a "saved" toast or notification, add save button -->
   <div class="section no-pad-bot" id="index-banner">
     <div class="container center">
       <h1 class="center">Edit - 10/28/19</h1>
+      <a id="btnBreakfast" class="waves-effect waves-light btn uniform-btn-width brown darken-3"><i class="material-icons right">add</i>breakfast</a>
+      <div id="dropdown" class="input-field">
+        <select class="icons">
+          <option value="" disabled selected>Choose your option</option>
+          <option value="" data-icon="images/plus.png">Custom Recipe</option>
+          <option value="" data-icon="images/filet-mignon.png">Filet Mignon</option>
+          <option value="" data-icon="images/salmon.png">Smoked Salmon</option>
+        </select>
+      </div>
 
-
-      <!-- Dropdown Trigger -->
-      <a class='dropdown-trigger btn uniform-btn-width' href='#' data-target='dropdown1'><i class="material-icons right">add</i>breakfast</a>
-      <!-- Dropdown Structure -->
-      <ul id='dropdown1' class='dropdown-content'>
-        <li><a href="#!">Custom Recipe</a></li>
-        <li class="divider" tabindex="-1"></li>
-        <li><a href="#!">Filet Mignon</a></li>
-        <li><a href="#!">Salmon</a></li>
-      </ul>
-      
       <hr>
-      <a class="waves-effect waves-light btn uniform-btn-width"><i class="material-icons right">add</i>lunch</a>
+      <a class="waves-effect waves-light btn uniform-btn-width red darken-3"><i class="material-icons right">add</i>lunch</a>
       <hr>
-      <a class="waves-effect waves-light btn uniform-btn-width"><i class="material-icons right">add</i>dinner</a>
+      <a class="waves-effect waves-light btn uniform-btn-width blue"><i class="material-icons right">add</i>dinner</a>
+      <div class="section"></div>
+      <a class="waves-effect waves-light btn uniform-btn-width green"><i class="material-icons right">save</i>Save</a>
     </div>
   </div>
 
@@ -49,6 +51,8 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
+  <script src="js/edit.js"></script>
+
 
 </body>
 
