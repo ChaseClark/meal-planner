@@ -26,7 +26,7 @@ include('session.php');
             <h5><-- Swipe to change day --></h5>
             <div class="carousel carousel-slider center meals-carousel">
                     <div class="card hoverable carousel-item">
-                        <a href="edit.html" class="btn-floating right waves-effect waves-light lime accent-4"><i
+                        <a href="edit.php" class="btn-floating right waves-effect waves-light teal accent-4"><i
                                 class="material-icons">edit</i></a>
                         <div class="card-content">
                             <span id="card0" class="card-title">change me</span>

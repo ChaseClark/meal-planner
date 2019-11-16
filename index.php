@@ -65,7 +65,7 @@
                   <label for="password">Password</label>
                 </div>
               </div>
-          <input class="btn lime accent-4 black-text" type="submit" value="Log In">
+          <input class="btn teal accent-4" type="submit" value="Log In">
           </form>
         </div> 
       <br><br>

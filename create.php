@@ -66,7 +66,7 @@
               <label for="passwordConfirm">Confirm Password</label>
             </div>
           </div>
-          <input class="btn lime accent-4 black-text" type="submit" value="Create Account">
+          <input class="btn teal accent-4" type="submit" value="Create Account">
         </form>
         <?php
         if($_SERVER["REQUEST_METHOD"]=="POST") {
