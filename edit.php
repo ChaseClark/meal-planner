@@ -25,6 +25,7 @@ include('session.php');
   <div class="section no-pad-bot" id="index-banner">
     <div class="container center">
       <h1 class="center red-text darken-1">Edit - 10/28/19</h1>
+      <div class="card-panel grey lighten-5 edit-card">
       <a id="btnBreakfast" class="waves-effect waves-light btn uniform-btn-width brown darken-3"><i class="material-icons right">add</i>breakfast</a>
       <div id="dropdown" class="input-field">
         <select class="icons">
@@ -44,6 +45,7 @@ include('session.php');
       <div class="section"></div>
       <div class="section"></div>
       <a class="waves-effect waves-light btn uniform-btn-width teal accent-4"><i class="material-icons right">save</i>Save</a>
+</div>
     </div>
   </div>
 
