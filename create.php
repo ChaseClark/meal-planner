@@ -35,7 +35,7 @@
   }
 ?>
 <!-- Navigation -->
-<nav class="light-blue lighten-1" role="navigation">
+<nav class="purple darken-2" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="index.php" class="brand-logo">Meal Planner</a>
     </div>
   </nav>
@@ -45,7 +45,7 @@
   <div class="section no-pad-bot" id="index-banner">
     <div class="container center">
       <br><br>
-      <h1>Sign Up</h1>
+      <h1 class="red-text text-darken-1">Sign Up</h1>
       <div class="row card-panel grey lighten-5">
         <form action="" method="post" class="col s12">
           <div class="row">
@@ -66,7 +66,7 @@
               <label for="passwordConfirm">Confirm Password</label>
             </div>
           </div>
-          <input class="btn" type="submit" value="Create Account">
+          <input class="btn lime accent-4 black-text" type="submit" value="Create Account">
         </form>
         <?php
         if($_SERVER["REQUEST_METHOD"]=="POST") {

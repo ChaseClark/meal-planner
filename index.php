@@ -32,7 +32,7 @@
 ?>
       <!-- Navigation -->
 
-  <nav class="light-blue lighten-1" role="navigation">
+  <nav class="purple darken-2" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="index.php" class="brand-logo">Meal Planner</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="create.php">Create Account</a></li>
@@ -47,7 +47,7 @@
 
   <!-- Login  -->
   <div class="section no-pad-bot" id="index-banner">
-    <div class="container center">
+    <div class="container center red-text text-darken-1">
       <h2>Make meal planning simple</h2>
       <br><br>
       <h5 class="indigo-text">Please, login into your account</h5>
@@ -65,7 +65,7 @@
                   <label for="password">Password</label>
                 </div>
               </div>
-          <input class="btn" type="submit" value="Log In">
+          <input class="btn lime accent-4 black-text" type="submit" value="Log In">
           </form>
         </div> 
       <br><br>
