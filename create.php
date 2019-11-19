@@ -42,7 +42,7 @@
   <!-- End Navigation -->
 
   <!-- Create Account -->
-  <div class="section no-pad-bot" id="index-banner">
+  <div class="section no-pad-bot">
     <div class="container center">
       <br><br>
       <h1 class="red-text text-darken-1">Sign Up</h1>

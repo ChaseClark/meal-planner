@@ -17,7 +17,7 @@ include('session.php');
     <!-- End Navigation -->
 
     <!-- Do not need to render past days with no data to show -->
-    <div class="section no-pad-bot" id="index-banner">
+    <div class="section no-pad-bot">
         <div class="container center">
             <h1 class="center red-text text-darken-1">Weekly Schedule</h1>
             <br>

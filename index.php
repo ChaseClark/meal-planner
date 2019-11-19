@@ -46,7 +46,7 @@
   <!-- End Navigation -->
 
   <!-- Login  -->
-  <div class="section no-pad-bot" id="index-banner">
+  <div class="section no-pad-bot">
     <div class="container center red-text text-darken-1">
       <h2>Make meal planning simple</h2>
       <br><br>
