@@ -9,6 +9,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
 }
 ?>
 
+<!-- if recipe isnt custom, load the data but do not allow for editing, add -->
+<!-- add 'disabled' in the html -->
 <body>
   <!-- Navigation -->
   <nav class="purple darken-2" role="navigation">

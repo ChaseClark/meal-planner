@@ -21,7 +21,7 @@
     if($count == 1) {
         //session_register("myusername");
         $_SESSION['login_user'] = $myusername;
-        //$_SESSION['id'] = $row["id"];
+        $_SESSION['id'] = $row["id"];
         mysqli_close($db);
         header("location: home.php");
     }else {
