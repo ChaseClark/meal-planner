@@ -41,10 +41,9 @@ $username =$_SESSION['login_user'];
                     // If result matched $myusername and $mypassword, table row must be 1 row
 
                     if($num > 0) {
-                        //session_register("myusername");
                         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                             echo '<div class="card hoverable carousel-item">
-                            <a href="edit.php" class="btn-floating right waves-effect waves-light teal accent-4"><i
+                            <a href="edit.php?meals_id='.$row['meals_id'].'" class="btn-floating right waves-effect waves-light teal accent-4"><i
                                     class="material-icons">edit</i></a>
                             <div class="card-content">
                                 <span id="card0" class="card-title">'.
@@ -131,7 +130,7 @@ $username =$_SESSION['login_user'];
                         }
                         mysqli_close($db);
                     }else {
-                        $error = "Username or Password is invalid.";
+                        echo "Nothing found.";
                     }
 
                 ?>

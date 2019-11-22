@@ -3,9 +3,13 @@ $title = 'Meal Planner | Edit';
 include ('./includes/header.html');
 include('session.php');
 
+require_once ('./mysqli_connect.php');
+$user_id = $_SESSION['id'];
+$username =$_SESSION['login_user'];
+
 // maybe code to prevent cross-user access
 if($_SERVER["REQUEST_METHOD"]=="POST") {
-  echo "test";
+  echo "debug: submition detected";
 }
 ?>
 
@@ -31,7 +35,24 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
   <!-- TODO: Add a "saved" toast or notification, add save button -->
   <div class="section no-pad-bot">
     <div class="container center">
-      <h1 class="center red-text darken-1">Edit - 10/28/19</h1>
+    <?php
+      $sql = "SELECT * FROM meals WHERE user_id = '$user_id' and meals_id='{$_GET['meals_id']}'";
+      $result = mysqli_query($db,$sql);
+      $num = mysqli_num_rows($result);
+
+      if($num == 1) {
+          while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            echo '<h1 class="center red-text darken-1">Edit - '.$row['date'].'</h1>
+            <div class="card-panel grey lighten-5">
+            <form action="" method="post" class="col s12">';
+          }
+          mysqli_close($db);
+      }else {
+          echo "Nothing found.";
+      }
+
+      ?>
+      <!-- <h1 class="center red-text darken-1">Edit - 10/28/19</h1>
       <div class="card-panel grey lighten-5">
       <form action="" method="post" class="col s12">
 
@@ -103,7 +124,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
       <input class="btn uniform-btn-width teal accent-4" type="submit" value="Save"> 
       <a href="home.php" class="waves-effect waves-light btn uniform-btn-width red accent-4"><i class="material-icons right">cancel</i>Cancel</a>
       </form>
-</div>
+</div> -->
+
     </div>
   </div>
 
