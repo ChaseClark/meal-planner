@@ -9,8 +9,113 @@ $username =$_SESSION['login_user'];
 
 // maybe code to prevent cross-user access
 if($_SERVER["REQUEST_METHOD"]=="POST") {
-  echo "debug: submition detected";
+  $query = "UPDATE meals SET breakfast_id = '{$_POST['selectBreakfast']}' WHERE meals_id='{$_GET['meals_id']}'";
+  $result = @mysqli_query($db,$query);
+  if ($result) {
+      header("Location: home.php");
+      exit;
+  } else {
+      echo '<h3>System Error</h3>
+      <p class="error">Your meals were not updated due to a database error.</p>'; 
+      echo '<p>' . mysqli_error($db) . '<br /><br />Query: ' . $query . '</p>';
+  } 
+  mysqli_close($db);
 }
+
+function loadNewSection($meal_name){
+  global $db;
+  // get all preset recipes
+  $q1 = "SELECT * FROM recipe WHERE is_custom = '0'";
+  $r1 = mysqli_query($db,$q1);
+  $n1 = mysqli_num_rows($r1);
+
+  echo '<div id="'.$meal_name.'" class="meal-selection">
+  <a id="btn'.$meal_name.'" class="waves-effect waves-light btn uniform-btn-width purple darken-2"><i class="material-icons right">add</i>'.$meal_name.'</a>
+  <div id="ddl'.$meal_name.'" class="input-field initial-hide">
+    <select name="select'.$meal_name.'">
+      <option value="0">None</option>
+      <option value="?">Custom Recipe</option>';
+      if($n1 > 0) {
+        while ($row1 = mysqli_fetch_array($r1, MYSQLI_ASSOC)) {
+          echo '<option value="'.$row1['recipe_id'].'">'.$row1['name'].'</option>';
+        }
+      }
+    echo '</select>
+  </div>
+
+  <div id="new'.$meal_name.'" class="col s12 card-panel grey lighten-5 initial-hide">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="name'.$meal_name.'" type="text" class="validate" name="name'.$meal_name.'">
+            <label for="name'.$meal_name.'">Name</label>
+          </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+              <input id="ingredients'.$meal_name.'" type="text" class="validate" name="ingredients'.$meal_name.'">
+              <label for="ingredients'.$meal_name.'">Ingredients (separate with comma)</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+              <input id="calories'.$meal_name.'" type="number" class="validate" name="calories'.$meal_name.'" min="0" max="9999" step="1">
+              <label for="calories'.$meal_name.'">Calories (Whole Number)</label>
+            </div>
+        </div>
+  </div>
+
+</div>
+
+<hr>';
+}
+
+function loadSavedSection($meal_name){
+  global $db;
+  // get all preset recipes
+  $q1 = "SELECT * FROM recipe WHERE is_custom = '0'";
+  $r1 = mysqli_query($db,$q1);
+  $n1 = mysqli_num_rows($r1);
+
+  echo '<div id="'.$meal_name.'" class="meal-selection">
+  <a id="btn'.$meal_name.'" class="waves-effect waves-light btn uniform-btn-width purple darken-2"><i class="material-icons right">add</i>'.$meal_name.'</a>
+  <div id="ddl'.$meal_name.'" class="input-field initial-hide">
+    <select name="select'.$meal_name.'">
+      <option value="0">None</option>
+      <option value="?">Custom Recipe</option>';
+      if($n1 > 0) {
+        while ($row1 = mysqli_fetch_array($r1, MYSQLI_ASSOC)) {
+          echo '<option value="'.$row1['recipe_id'].'">'.$row1['name'].'</option>';
+        }
+      }
+    echo '</select>
+  </div>
+
+  <div id="new'.$meal_name.'" class="col s12 card-panel grey lighten-5 initial-hide">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="name'.$meal_name.'" type="text" class="validate" name="name'.$meal_name.'">
+            <label for="name'.$meal_name.'">Name</label>
+          </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+              <input id="ingredients'.$meal_name.'" type="text" class="validate" name="ingredients'.$meal_name.'">
+              <label for="ingredients'.$meal_name.'">Ingredients (separate with comma)</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+              <input id="calories'.$meal_name.'" type="number" class="validate" name="calories'.$meal_name.'" min="0" max="9999" step="1">
+              <label for="calories'.$meal_name.'">Calories (Whole Number)</label>
+            </div>
+        </div>
+  </div>
+
+</div>
+
+<hr>';
+}
+
 ?>
 
 <!-- if recipe isnt custom, load the data but do not allow for editing, add -->
@@ -45,12 +150,30 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
             echo '<h1 class="center red-text darken-1">Edit - '.$row['date'].'</h1>
             <div class="card-panel grey lighten-5">
             <form action="" method="post" class="col s12">';
-          }
-          mysqli_close($db);
-      }else {
-          echo "Nothing found.";
-      }
 
+            // breakfast
+            if($row['breakfast_id'] < 1) {
+              // display the add button
+              loadNewSection('Breakfast');
+            }
+            else {
+              // load the current recipe id in dropdown or custom format
+              loadSavedSection('Breakfast');
+            }
+          }
+      }else {
+          echo "No meal id detected or in db.";
+          // show datepicker and create a new meals entry for the current user
+      }
+      // echo bottom portion of form
+      echo '<div class="section"></div>
+            <div class="section"></div>
+            <div class="section"></div>
+            <div class="section"></div>
+            <input class="btn uniform-btn-width teal accent-4" type="submit" value="Save"> 
+            <a href="home.php" class="waves-effect waves-light btn uniform-btn-width red accent-4"><i class="material-icons right">cancel</i>Cancel</a>
+            </form>
+            </div> ';
       ?>
       <!-- <h1 class="center red-text darken-1">Edit - 10/28/19</h1>
       <div class="card-panel grey lighten-5">
@@ -117,6 +240,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
           </select>
         </div>
       </div>
+
       <div class="section"></div>
       <div class="section"></div>
       <div class="section"></div>

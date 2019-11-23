@@ -18,11 +18,11 @@
                 // TODO: implement the form, wait for the database fields
                 //$(`#ddl${$(this).parent().parent().parent().attr('id')}`).toggle();
                 $(`#new${$(this).parent().parent().parent().attr('id')}`).show();
-                console.log(`#new${$(this).parent().parent().parent().attr('id')}`);
+                //console.log(`#new${$(this).parent().parent().parent().attr('id')}`);
                 $(`#name${$(this).parent().parent().parent().attr('id')}`).attr('required');
             }
 
-            console.log(this.value);
+            //console.log(this.value);
         });
     }); // end of document ready
 })(jQuery); // end of jQuery name space
