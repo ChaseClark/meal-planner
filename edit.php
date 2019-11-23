@@ -69,22 +69,34 @@ function loadNewSection($meal_name){
 <hr>';
 }
 
-function loadSavedSection($meal_name){
+function loadSavedSection($meal_name, $r_id){
   global $db;
   // get all preset recipes
   $q1 = "SELECT * FROM recipe WHERE is_custom = '0'";
   $r1 = mysqli_query($db,$q1);
   $n1 = mysqli_num_rows($r1);
 
+  $t_query = "SELECT * FROM recipe WHERE recipe_id = '{$r_id}'";
+  $t_result = mysqli_query($db,$t_query);
+  $t_num = mysqli_num_rows($t_result);
+
+  // removed initial hide js from ddl and added it to btn
   echo '<div id="'.$meal_name.'" class="meal-selection">
-  <a id="btn'.$meal_name.'" class="waves-effect waves-light btn uniform-btn-width purple darken-2"><i class="material-icons right">add</i>'.$meal_name.'</a>
-  <div id="ddl'.$meal_name.'" class="input-field initial-hide">
+  <a id="btn'.$meal_name.'" class=" initial-hide waves-effect waves-light btn uniform-btn-width purple darken-2"><i class="material-icons right">add</i>'.$meal_name.'</a>
+  <div id="ddl'.$meal_name.'" class="input-field">
     <select name="select'.$meal_name.'">
       <option value="0">None</option>
       <option value="?">Custom Recipe</option>';
       if($n1 > 0) {
         while ($row1 = mysqli_fetch_array($r1, MYSQLI_ASSOC)) {
-          echo '<option value="'.$row1['recipe_id'].'">'.$row1['name'].'</option>';
+          // check if selected
+          if($row1['recipe_id']==$r_id)
+          {
+            echo '<option value="'.$row1['recipe_id'].'" selected>'.$row1['name'].'</option>';
+          }
+          else {
+            echo '<option value="'.$row1['recipe_id'].'">'.$row1['name'].'</option>';
+          }
         }
       }
     echo '</select>
@@ -158,7 +170,7 @@ function loadSavedSection($meal_name){
             }
             else {
               // load the current recipe id in dropdown or custom format
-              loadSavedSection('Breakfast');
+              loadSavedSection('Breakfast',$row['breakfast_id']);
             }
           }
       }else {

@@ -29,8 +29,8 @@ $username =$_SESSION['login_user'];
             <h1 class="center red-text text-darken-1">Weekly Schedule</h1>
             <br>
             <!-- <h5>Select A Date To Add New Entry</h5>
-            <input id="date" type="text" class="datepicker center">
-            <h5>< Swipe to change day ></h5> -->
+            <input id="date" type="text" class="datepicker center"> -->
+            <h5>< Swipe to change day ></h5>
             <div class="carousel carousel-slider center meals-carousel">
                 <?php
                     $sql = "SELECT * FROM meals WHERE user_id = '$user_id' ORDER BY 'date'";
