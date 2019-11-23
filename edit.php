@@ -9,7 +9,64 @@ $username =$_SESSION['login_user'];
 
 // maybe code to prevent cross-user access
 if($_SERVER["REQUEST_METHOD"]=="POST") {
-  $query = "UPDATE meals SET breakfast_id = '{$_POST['selectBreakfast']}' WHERE meals_id='{$_GET['meals_id']}'";
+  // -1 = custom form
+  if($_POST['selectBreakfast']==-1) {
+    // now we need to create a new recipe and grab its new id
+    // inputs are validated on the client side(hopefully)
+    $insert_query = "INSERT INTO recipe (name,is_custom,ingredients,instructions, calories) VALUES ('{$_POST['nameBreakfast']}','1','{$_POST['ingredientsBreakfast']}','{$_POST['instructionsBreakfast']}','{$_POST['caloriesBreakfast']}')";
+    $insert_result = @mysqli_query($db,$insert_query);
+    if ($insert_result) {
+        // grab the last inserted id
+        $update_breakfast_id = mysqli_insert_id($db);
+        echo $update_breakfast_id;
+    } else {
+      # error
+    }
+  }
+  else {
+    // either none or a preset is selected
+    $update_breakfast_id = $_POST['selectBreakfast'];
+  }
+
+  if($_POST['selectLunch']==-1) {
+    // now we need to create a new recipe and grab its new id
+    // inputs are validated on the client side(hopefully)
+    $insert_query = "INSERT INTO recipe (name,is_custom,ingredients,instructions, calories) VALUES ('{$_POST['nameLunch']}','1','{$_POST['ingredientsLunch']}','{$_POST['instructionsLunch']}','{$_POST['caloriesLunch']}')";
+    $insert_result = @mysqli_query($db,$insert_query);
+    if ($insert_result) {
+        // grab the last inserted id
+        $update_lunch_id = mysqli_insert_id($db);
+        echo $update_lunch_id;
+    } else {
+      # error
+    }
+  }
+  else {
+    // either none or a preset is selected
+    $update_lunch_id = $_POST['selectLunch'];
+  }
+
+  if($_POST['selectDinner']==-1) {
+    // now we need to create a new recipe and grab its new id
+    // inputs are validated on the client side(hopefully)
+    $insert_query = "INSERT INTO recipe (name,is_custom,ingredients,instructions, calories) VALUES ('{$_POST['nameDinner']}','1','{$_POST['ingredientsDinner']}','{$_POST['instructionsDinner']}','{$_POST['caloriesDinner']}')";
+    $insert_result = @mysqli_query($db,$insert_query);
+    if ($insert_result) {
+        // grab the last inserted id
+        $update_dinner_id = mysqli_insert_id($db);
+        echo $update_dinner_id;
+    } else {
+      # error
+    }
+  }
+  else {
+    // either none or a preset is selected
+    $update_dinner_id = $_POST['selectDinner'];
+  }
+
+  // we can update all 3 at once
+  $query = "UPDATE meals SET breakfast_id = '$update_breakfast_id',
+  lunch_id = '$update_lunch_id', dinner_id = '$update_dinner_id' WHERE meals_id='{$_GET['meals_id']}'";
   $result = @mysqli_query($db,$query);
   if ($result) {
       header("Location: home.php");
@@ -22,19 +79,19 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
   mysqli_close($db);
 }
 
-function loadNewSection($meal_name){
+function loadNewSection($meal_type){
   global $db;
   // get all preset recipes
   $q1 = "SELECT * FROM recipe WHERE is_custom = '0'";
   $r1 = mysqli_query($db,$q1);
   $n1 = mysqli_num_rows($r1);
 
-  echo '<div id="'.$meal_name.'" class="meal-selection">
-  <a id="btn'.$meal_name.'" class="waves-effect waves-light btn uniform-btn-width purple darken-2"><i class="material-icons right">add</i>'.$meal_name.'</a>
-  <div id="ddl'.$meal_name.'" class="input-field initial-hide">
-    <select name="select'.$meal_name.'">
+  echo '<div id="'.$meal_type.'" class="meal-selection">
+  <a id="btn'.$meal_type.'" class="waves-effect waves-light btn uniform-btn-width purple darken-2"><i class="material-icons right">add</i>'.$meal_type.'</a>
+  <div id="ddl'.$meal_type.'" class="input-field initial-hide">
+    <select name="select'.$meal_type.'">
       <option value="0">None</option>
-      <option value="?">Custom Recipe</option>';
+      <option value="-1">Custom Recipe</option>';
       if($n1 > 0) {
         while ($row1 = mysqli_fetch_array($r1, MYSQLI_ASSOC)) {
           echo '<option value="'.$row1['recipe_id'].'">'.$row1['name'].'</option>';
@@ -43,23 +100,29 @@ function loadNewSection($meal_name){
     echo '</select>
   </div>
 
-  <div id="new'.$meal_name.'" class="col s12 card-panel grey lighten-5 initial-hide">
+  <div id="new'.$meal_type.'" class="col s12 card-panel grey lighten-5 initial-hide">
         <div class="row">
           <div class="input-field col s12">
-            <input id="name'.$meal_name.'" type="text" class="validate" name="name'.$meal_name.'">
-            <label for="name'.$meal_name.'">Name</label>
+            <input id="name'.$meal_type.'" type="text" class="validate" name="name'.$meal_type.'">
+            <label for="name'.$meal_type.'">Name</label>
           </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-              <input id="ingredients'.$meal_name.'" type="text" class="validate" name="ingredients'.$meal_name.'">
-              <label for="ingredients'.$meal_name.'">Ingredients (separate with comma)</label>
+              <textarea id="ingredients'.$meal_type.'" class="validate materialize-textarea" name="ingredients'.$meal_type.'"></textarea>
+              <label for="ingredients'.$meal_type.'">Ingredients (separate with comma)</label>
             </div>
         </div>
         <div class="row">
+          <div class="input-field col s12">
+            <textarea id="instructions'.$meal_type.'" type="text" class="validate materialize-textarea" name="instructions'.$meal_type.'"></textarea>
+            <label for="instructions'.$meal_type.'">Instructions (separate with comma)</label>
+          </div>
+        </div>
+        <div class="row">
             <div class="input-field col s12">
-              <input id="calories'.$meal_name.'" type="number" class="validate" name="calories'.$meal_name.'" min="0" max="9999" step="1">
-              <label for="calories'.$meal_name.'">Calories (Whole Number)</label>
+              <input id="calories'.$meal_type.'" type="number" class="validate" name="calories'.$meal_type.'" min="0" max="9999" step="1">
+              <label for="calories'.$meal_type.'">Calories (Whole Number)</label>
             </div>
         </div>
   </div>
@@ -69,7 +132,7 @@ function loadNewSection($meal_name){
 <hr>';
 }
 
-function loadSavedSection($meal_name, $r_id){
+function loadSavedSection($meal_type, $r_id){
   global $db;
   // get all preset recipes
   $q1 = "SELECT * FROM recipe WHERE is_custom = '0'";
@@ -81,12 +144,12 @@ function loadSavedSection($meal_name, $r_id){
   $t_num = mysqli_num_rows($t_result);
 
   // removed initial hide js from ddl and added it to btn
-  echo '<div id="'.$meal_name.'" class="meal-selection">
-  <a id="btn'.$meal_name.'" class=" initial-hide waves-effect waves-light btn uniform-btn-width purple darken-2"><i class="material-icons right">add</i>'.$meal_name.'</a>
-  <div id="ddl'.$meal_name.'" class="input-field">
-    <select name="select'.$meal_name.'">
+  echo '<div id="'.$meal_type.'" class="meal-selection">
+  <a id="btn'.$meal_type.'" class=" initial-hide waves-effect waves-light btn uniform-btn-width purple darken-2"><i class="material-icons right">add</i>'.$meal_type.'</a>
+  <div id="ddl'.$meal_type.'" class="input-field">
+    <select name="select'.$meal_type.'">
       <option value="0">None</option>
-      <option value="?">Custom Recipe</option>';
+      <option value="-1">Custom Recipe</option>';
       if($n1 > 0) {
         while ($row1 = mysqli_fetch_array($r1, MYSQLI_ASSOC)) {
           // check if selected
@@ -102,23 +165,29 @@ function loadSavedSection($meal_name, $r_id){
     echo '</select>
   </div>
 
-  <div id="new'.$meal_name.'" class="col s12 card-panel grey lighten-5 initial-hide">
+  <div id="new'.$meal_type.'" class="col s12 card-panel grey lighten-5 initial-hide">
         <div class="row">
           <div class="input-field col s12">
-            <input id="name'.$meal_name.'" type="text" class="validate" name="name'.$meal_name.'">
-            <label for="name'.$meal_name.'">Name</label>
+            <input id="name'.$meal_type.'" type="text" class="validate" name="name'.$meal_type.'">
+            <label for="name'.$meal_type.'">Name</label>
           </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-              <input id="ingredients'.$meal_name.'" type="text" class="validate" name="ingredients'.$meal_name.'">
-              <label for="ingredients'.$meal_name.'">Ingredients (separate with comma)</label>
+              <textarea id="ingredients'.$meal_type.'" type="text" class="validate materialize-textarea" name="ingredients'.$meal_type.'"></textarea>
+              <label for="ingredients'.$meal_type.'">Ingredients (separate with comma)</label>
             </div>
         </div>
         <div class="row">
+          <div class="input-field col s12">
+            <textarea id="instructions'.$meal_type.'" type="text" class="validate materialize-textarea" name="instructions'.$meal_type.'"></textarea>
+            <label for="instructions'.$meal_type.'">Instructions (separate with comma)</label>
+          </div>
+        </div>
+        <div class="row">
             <div class="input-field col s12">
-              <input id="calories'.$meal_name.'" type="number" class="validate" name="calories'.$meal_name.'" min="0" max="9999" step="1">
-              <label for="calories'.$meal_name.'">Calories (Whole Number)</label>
+              <input id="calories'.$meal_type.'" type="number" class="validate" name="calories'.$meal_type.'" min="0" max="9999" step="1">
+              <label for="calories'.$meal_type.'">Calories (Whole Number)</label>
             </div>
         </div>
   </div>
@@ -172,9 +241,30 @@ function loadSavedSection($meal_name, $r_id){
               // load the current recipe id in dropdown or custom format
               loadSavedSection('Breakfast',$row['breakfast_id']);
             }
+
+            // lunch
+            if($row['lunch_id'] < 1) {
+              // display the add button
+              loadNewSection('Lunch');
+            }
+            else {
+              // load the current recipe id in dropdown or custom format
+              loadSavedSection('Lunch',$row['lunch_id']);
+            }
+
+            // dinner
+            if($row['dinner_id'] < 1) {
+              // display the add button
+              loadNewSection('Dinner');
+            }
+            else {
+              // load the current recipe id in dropdown or custom format
+              loadSavedSection('Dinner',$row['dinner_id']);
+            }            
+
           }
       }else {
-          echo "No meal id detected or in db.";
+          echo "No meals_id detected or in db.";
           // show datepicker and create a new meals entry for the current user
       }
       // echo bottom portion of form
