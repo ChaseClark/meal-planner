@@ -32,9 +32,21 @@
                 $(`#name${$(this).parent().parent().parent().attr('id')}`).attr('required', false);
                 $(`#ingredients${$(this).parent().parent().parent().attr('id')}`).attr('required', false);
                 $(`#calories${$(this).parent().parent().parent().attr('id')}`).attr('required', false);
-            }
-
-            //console.log(this.value);
+            }            
         });
+
+        $('.card-panel .input-field input').keyup(function() {
+            var value = $(this).val();
+            value = value.replace(/[^a-z0-9\s]/gi, '');
+            $(this).val(value);
+        })
+        .keyup();
+
+        $('.card-panel .input-field textarea').keyup(function() {
+            var value = $(this).val();
+            value = value.replace(/[^a-z0-9\s]/gi, '');
+            $(this).val(value);
+        })
+        .keyup();
     }); // end of document ready
 })(jQuery); // end of jQuery name space
