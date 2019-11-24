@@ -85,7 +85,7 @@ $username =$_SESSION['login_user'];
                             $r2 = mysqli_query($db,$q2);
                             $n2 = mysqli_num_rows($r2);
                             if ($n2 == 1) {
-                                # there should only every be 2 result
+                                # there should only every be 1 result
                                 $row2 = mysqli_fetch_array($r2,MYSQLI_ASSOC);
                                 echo '<div id="lunch'.$row['meals_id'].'">
                                     <h4>'.$row2['name'].'</h4>
@@ -107,7 +107,7 @@ $username =$_SESSION['login_user'];
                             $r3 = mysqli_query($db,$q3);
                             $n3 = mysqli_num_rows($r3);
                             if ($n3 == 1) {
-                                # there should only every be 3 result
+                                # there should only every be 1 result
                                 $row3 = mysqli_fetch_array($r3,MYSQLI_ASSOC);
                                 echo '<div id="dinner'.$row['meals_id'].'">
                                     <h4>'.$row3['name'].'</h4>

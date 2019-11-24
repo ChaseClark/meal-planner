@@ -9,18 +9,43 @@ $username =$_SESSION['login_user'];
 
 // maybe code to prevent cross-user access
 if($_SERVER["REQUEST_METHOD"]=="POST") {
-  // -1 = custom form
-  if($_POST['selectBreakfast']==-1) {
-    // now we need to create a new recipe and grab its new id
-    // inputs are validated on the client side(hopefully)
-    $insert_query = "INSERT INTO recipe (name,is_custom,ingredients,instructions, calories) VALUES ('{$_POST['nameBreakfast']}','1','{$_POST['ingredientsBreakfast']}','{$_POST['instructionsBreakfast']}','{$_POST['caloriesBreakfast']}')";
-    $insert_result = @mysqli_query($db,$insert_query);
-    if ($insert_result) {
-        // grab the last inserted id
-        $update_breakfast_id = mysqli_insert_id($db);
-        echo $update_breakfast_id;
+  $sql = "SELECT * FROM meals WHERE user_id = '$user_id' and meals_id='{$_GET['meals_id']}'";
+  $result = mysqli_query($db,$sql);
+  $num = mysqli_num_rows($result);
+  if ($num > 0) {
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    if($row['breakfast_id'] > 0) {
+      $update_breakfast_id = $row['breakfast_id'];
+    } else{
+      $update_breakfast_id = -1;
+    }
+    if($row['lunch_id'] > 0) {
+      $update_lunch_id = $row['lunch_id'];
     } else {
-      # error
+      $update_lunch_id = -1;
+    }
+    if($row['dinner_id'] > 0) {
+      $update_dinner_id = $row['dinner_id'];
+    } else {
+      $update_dinner_id = -1;
+    }
+  }
+
+
+  if($_POST['selectBreakfast']==-1) {
+    // check if we need to update rather than insert
+    if($update_breakfast_id > 0) {
+      $update_query = "UPDATE recipe SET name='{$_POST['nameBreakfast']}', ingredients='{$_POST['ingredientsBreakfast']}', instructions='{$_POST['instructionsBreakfast']}', calories='{$_POST['caloriesBreakfast']}' WHERE recipe_id=$update_breakfast_id";
+      $update_result = @mysqli_query($db,$update_query);
+    } else {
+      $insert_query = "INSERT INTO recipe (name,is_custom,ingredients,instructions, calories) VALUES ('{$_POST['nameBreakfast']}','1','{$_POST['ingredientsBreakfast']}','{$_POST['instructionsBreakfast']}','{$_POST['caloriesBreakfast']}')";
+      $insert_result = @mysqli_query($db,$insert_query);
+      if ($insert_result) {
+          // grab the last inserted id
+          $update_breakfast_id = mysqli_insert_id($db);
+      } else {
+        # error
+      }
     }
   }
   else {
@@ -29,16 +54,18 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
   }
 
   if($_POST['selectLunch']==-1) {
-    // now we need to create a new recipe and grab its new id
-    // inputs are validated on the client side(hopefully)
-    $insert_query = "INSERT INTO recipe (name,is_custom,ingredients,instructions, calories) VALUES ('{$_POST['nameLunch']}','1','{$_POST['ingredientsLunch']}','{$_POST['instructionsLunch']}','{$_POST['caloriesLunch']}')";
-    $insert_result = @mysqli_query($db,$insert_query);
-    if ($insert_result) {
-        // grab the last inserted id
-        $update_lunch_id = mysqli_insert_id($db);
-        echo $update_lunch_id;
+    if($update_lunch_id > 0) {
+      $update_query = "UPDATE recipe SET name='{$_POST['nameLunch']}', ingredients='{$_POST['ingredientsLunch']}', instructions='{$_POST['instructionsLunch']}', calories='{$_POST['caloriesLunch']}' WHERE recipe_id=$update_lunch_id";
+      $update_result = @mysqli_query($db,$update_query);
     } else {
-      # error
+      $insert_query = "INSERT INTO recipe (name,is_custom,ingredients,instructions, calories) VALUES ('{$_POST['nameLunch']}','1','{$_POST['ingredientsLunch']}','{$_POST['instructionsLunch']}','{$_POST['caloriesLunch']}')";
+      $insert_result = @mysqli_query($db,$insert_query);
+      if ($insert_result) {
+          // grab the last inserted id
+          $update_lunch_id = mysqli_insert_id($db);
+      } else {
+        # error
+      }
     }
   }
   else {
@@ -47,16 +74,18 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
   }
 
   if($_POST['selectDinner']==-1) {
-    // now we need to create a new recipe and grab its new id
-    // inputs are validated on the client side(hopefully)
-    $insert_query = "INSERT INTO recipe (name,is_custom,ingredients,instructions, calories) VALUES ('{$_POST['nameDinner']}','1','{$_POST['ingredientsDinner']}','{$_POST['instructionsDinner']}','{$_POST['caloriesDinner']}')";
-    $insert_result = @mysqli_query($db,$insert_query);
-    if ($insert_result) {
-        // grab the last inserted id
-        $update_dinner_id = mysqli_insert_id($db);
-        echo $update_dinner_id;
+    if($update_dinner_id > 0) {
+      $update_query = "UPDATE recipe SET name='{$_POST['nameDinner']}', ingredients='{$_POST['ingredientsDinner']}', instructions='{$_POST['instructionsDinner']}', calories='{$_POST['caloriesDinner']}' WHERE recipe_id=$update_dinner_id";
+      $update_result = @mysqli_query($db,$update_query);
     } else {
-      # error
+      $insert_query = "INSERT INTO recipe (name,is_custom,ingredients,instructions, calories) VALUES ('{$_POST['nameDinner']}','1','{$_POST['ingredientsDinner']}','{$_POST['instructionsDinner']}','{$_POST['caloriesDinner']}')";
+      $insert_result = @mysqli_query($db,$insert_query);
+      if ($insert_result) {
+          // grab the last inserted id
+          $update_dinner_id = mysqli_insert_id($db);
+      } else {
+        # error
+      }
     }
   }
   else {
@@ -142,14 +171,27 @@ function loadSavedSection($meal_type, $r_id){
   $t_query = "SELECT * FROM recipe WHERE recipe_id = '{$r_id}'";
   $t_result = mysqli_query($db,$t_query);
   $t_num = mysqli_num_rows($t_result);
+  if($t_num == 1){
+    // check for custom
+    $t_row = mysqli_fetch_array($t_result, MYSQLI_ASSOC);
+  }
 
   // removed initial hide js from ddl and added it to btn
   echo '<div id="'.$meal_type.'" class="meal-selection">
   <a id="btn'.$meal_type.'" class=" initial-hide waves-effect waves-light btn uniform-btn-width purple darken-2"><i class="material-icons right">add</i>'.$meal_type.'</a>
   <div id="ddl'.$meal_type.'" class="input-field">
     <select name="select'.$meal_type.'">
-      <option value="0">None</option>
-      <option value="-1">Custom Recipe</option>';
+      <option value="0">None</option>';
+      if($t_num == 1) {
+          // set to selected if custom
+          if($t_row['is_custom']==1)
+          {
+            echo '<option selected value="-1">Custom Recipe</option>';
+          }
+          else {
+            echo '<option value="-1">Custom Recipe</option>';
+          }
+      }      
       if($n1 > 0) {
         while ($row1 = mysqli_fetch_array($r1, MYSQLI_ASSOC)) {
           // check if selected
@@ -163,9 +205,13 @@ function loadSavedSection($meal_type, $r_id){
         }
       }
     echo '</select>
-  </div>
-
-  <div id="new'.$meal_type.'" class="col s12 card-panel grey lighten-5 initial-hide">
+  </div>';
+  
+  if($t_num == 1){
+    // check for custom
+      if($t_row['is_custom'] == 0) {
+        // not custom
+        echo '<div id="new'.$meal_type.'" class="col s12 card-panel grey lighten-5 initial-hide">
         <div class="row">
           <div class="input-field col s12">
             <input id="name'.$meal_type.'" type="text" class="validate" name="name'.$meal_type.'">
@@ -190,11 +236,47 @@ function loadSavedSection($meal_type, $r_id){
               <label for="calories'.$meal_type.'">Calories (Whole Number)</label>
             </div>
         </div>
-  </div>
+          </div>
 
-</div>
+        </div>
 
-<hr>';
+        <hr>';
+      }
+      else {
+        // this is custom
+        // we are adding html "value" fields here to prefill the data from db
+        echo '<div id="new'.$meal_type.'" class="col s12 card-panel grey lighten-5">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="name'.$meal_type.'" type="text" class="validate" name="name'.$meal_type.'" value="'.$t_row['name'].'">
+            <label for="name'.$meal_type.'">Name</label>
+          </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+              <textarea id="ingredients'.$meal_type.'" type="text" class="validate materialize-textarea" name="ingredients'.$meal_type.'">'.$t_row['ingredients'].'</textarea>
+              <label for="ingredients'.$meal_type.'">Ingredients (separate with comma)</label>
+            </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="instructions'.$meal_type.'" type="text" class="validate materialize-textarea" name="instructions'.$meal_type.'">'.$t_row['instructions'].'</textarea>
+            <label for="instructions'.$meal_type.'">Instructions (separate with comma)</label>
+          </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+              <input id="calories'.$meal_type.'" type="number" class="validate" name="calories'.$meal_type.'" min="0" max="9999" step="1" value="'.$t_row['calories'].'">
+              <label for="calories'.$meal_type.'">Calories (Whole Number)</label>
+            </div>
+        </div>
+          </div>
+
+        </div>
+
+        <hr>';
+      }
+  }
 }
 
 ?>
