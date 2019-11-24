@@ -77,7 +77,7 @@ $username =$_SESSION['login_user'];
                             }
                             else {
                                 echo '<div id="breakfast'.$row['meals_id'].'">
-                                        Click the Edit button to add me...
+                                        <h2>Click the Edit button to add me...</h2>
                                     </div>';
                             }
 
@@ -98,7 +98,7 @@ $username =$_SESSION['login_user'];
                             }
                             else {
                                 echo '<div id="lunch'.$row['meals_id'].'">
-                                        Click the Edit button to add me...
+                                    <h2>Click the Edit button to add me...</h2>
                                     </div>';
                             }
 
@@ -119,8 +119,8 @@ $username =$_SESSION['login_user'];
                                 </div>';
                             }
                             else {
-                                echo '<div id="lunch'.$row['meals_id'].'">
-                                        Click the Edit button to add me...
+                                echo '<div id="dinner'.$row['meals_id'].'">
+                                    <h2>Click the Edit button to add me...</h2>
                                     </div>';
                             }
 
