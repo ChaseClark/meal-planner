@@ -9,6 +9,20 @@ $username =$_SESSION['login_user'];
 
 // maybe code to prevent cross-user access
 if($_SERVER["REQUEST_METHOD"]=="POST") {
+  // simple function to check if recipe_id is custom or not
+  function isPreset($r_id){
+    global $db;
+    $sql = "SELECT * FROM recipe WHERE recipe_id = '$r_id' and is_custom='0'";
+    $result = mysqli_query($db,$sql);
+    $num = mysqli_num_rows($result);
+    if ($num > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
   // var to hold newly inserted meals_id
   $new_meals_id = 0;
   $sql = "SELECT * FROM meals WHERE user_id = '$user_id' and meals_id='{$_GET['meals_id']}'";
@@ -18,20 +32,30 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     if($row['breakfast_id'] > 0) {
       $update_breakfast_id = $row['breakfast_id'];
+    } elseif (isPreset($row['breakfast_id'])){
+      $update_breakfast_id = -1;
     } else{
       $update_breakfast_id = -1;
     }
+
     if($row['lunch_id'] > 0) {
       $update_lunch_id = $row['lunch_id'];
-    } else {
-      $update_lunch_id = -1;
+    } elseif (isPreset($row['lunch_id'])){
+      $update_breakfast_id = -1;
+    } else{
+      $update_breakfast_id = -1;
     }
+
     if($row['dinner_id'] > 0) {
       $update_dinner_id = $row['dinner_id'];
-    } else {
-      $update_dinner_id = -1;
+    } elseif (isPreset($row['dinner_id'])){
+      $update_breakfast_id = -1;
+    } else{
+      $update_breakfast_id = -1;
     }
+
   } else {
+    // no mealS_id detected
     // create a new meals entry check if date is already taken for current user
     $sql = "SELECT * FROM meals WHERE user_id = '$user_id' and date='{$_GET['date']}'";
     $result = mysqli_query($db,$sql);
