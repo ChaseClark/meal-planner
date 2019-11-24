@@ -3,16 +3,15 @@
       // Date Picker
       var options = {
         defaultDate: new Date(),
-        setDefaultDate: true
+        setDefaultDate: true,
+        format: "yyyy-mm-dd"
       };
       var elems = document.querySelector('#date');
       var dpInstance = M.Datepicker.init(elems, options);
-      // current date stored in instance.toString() - need to add event listener for when date changes
-      //$('#card0').html(dpInstance.toString());  
-      // when date changes \ load the correct card
-      //$("#date").change(function () {
-        //$('#card0').html(dpInstance.toString());
-      //});
+
+      $("#date").change(function () {
+        window.location.replace(`edit.php?meals_id=0&date=${dpInstance.toString()}`);
+      });
   
     }); // end of document ready
   })(jQuery); // end of jQuery name space

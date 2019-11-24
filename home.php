@@ -28,10 +28,9 @@ $username =$_SESSION['login_user'];
         <div class="container center">
             <h1 class="center red-text text-darken-1">Weekly Schedule</h1>
             <br>
-            <!-- <h5>Select A Date To Add New Entry</h5>
-            <input id="date" type="text" class="datepicker center"> -->
-            <h5>< Swipe to change day ></h5>
-            <div class="carousel carousel-slider center meals-carousel">
+            <h5>Select A Date To Add New Entry</h5>
+            <input id="date" type="text" class="datepicker center">
+            <!-- <a href="" class="btn-floating waves-effect waves-light teal accent-4"><i class="material-icons">add</i></a> -->
                 <?php
                     $sql = "SELECT * FROM meals WHERE user_id = '$user_id' ORDER BY 'date'";
                     $result = mysqli_query($db,$sql);
@@ -41,8 +40,11 @@ $username =$_SESSION['login_user'];
                     // If result matched $myusername and $mypassword, table row must be 1 row
 
                     if($num > 0) {
+                        echo '<h5>< Swipe to change day ></h5>
+                        <div class="carousel carousel-slider center meals-carousel">';
                         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                            echo '<div class="card hoverable carousel-item">
+                            echo '
+                            <div class="card hoverable carousel-item">
                             <a href="edit.php?meals_id='.$row['meals_id'].'" class="btn-floating right waves-effect waves-light teal accent-4"><i
                                     class="material-icons">edit</i></a>
                             <div class="card-content">
