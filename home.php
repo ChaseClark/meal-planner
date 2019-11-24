@@ -68,11 +68,14 @@ $username =$_SESSION['login_user'];
                                 $row1 = mysqli_fetch_array($r1,MYSQLI_ASSOC);
                                 echo '<div id="breakfast'.$row['meals_id'].'">
                                     <h4>'.$row1['name'].'</h4>
+                                    <br />
+                                    <h5>Ingredients</h5>
+                                    <p>'.$row1['ingredients'].'</p>
+                                    <hr/>
+                                    <h5>Instructions</h5>
+                                    <p>'.nl2br($row1['instructions']).'</p>
+                                    <hr/>
                                     <p><em>Calories: '.$row1['calories'].'</em></p>
-                                    <br/>
-                                    <p>Ingredients: '.$row1['ingredients'].'</p>
-                                    <br/>
-                                    <p>Instructions: '.$row1['instructions'].'</p>
                                 </div>';
                             }
                             else {
@@ -89,11 +92,14 @@ $username =$_SESSION['login_user'];
                                 $row2 = mysqli_fetch_array($r2,MYSQLI_ASSOC);
                                 echo '<div id="lunch'.$row['meals_id'].'">
                                     <h4>'.$row2['name'].'</h4>
+                                    <br />
+                                    <h5>Ingredients</h5>
+                                    <p>'.$row2['ingredients'].'</p>
+                                    <hr/>
+                                    <h5>Instructions</h5>
+                                    <p>'.nl2br($row2['instructions']).'</p>
+                                    <hr/>
                                     <p><em>Calories: '.$row2['calories'].'</em></p>
-                                    <br/>
-                                    <p>Ingredients: '.$row2['ingredients'].'</p>
-                                    <br/>
-                                    <p>Instructions: '.$row2['instructions'].'</p>
                                 </div>';
                             }
                             else {
@@ -111,11 +117,14 @@ $username =$_SESSION['login_user'];
                                 $row3 = mysqli_fetch_array($r3,MYSQLI_ASSOC);
                                 echo '<div id="dinner'.$row['meals_id'].'">
                                     <h4>'.$row3['name'].'</h4>
+                                    <br />
+                                    <h5>Ingredients</h5>
+                                    <p>'.$row3['ingredients'].'</p>
+                                    <hr/>
+                                    <h5>Instructions</h5>
+                                    <p>'.nl2br($row3['instructions']).'</p>
+                                    <hr/>
                                     <p><em>Calories: '.$row3['calories'].'</em></p>
-                                    <br/>
-                                    <p>Ingredients: '.$row3['ingredients'].'</p>
-                                    <br/>
-                                    <p>Instructions: '.$row3['instructions'].'</p>
                                 </div>';
                             }
                             else {

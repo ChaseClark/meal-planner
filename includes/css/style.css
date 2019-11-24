@@ -7,7 +7,7 @@
  */
 
 
-html,body {
+html,body, #content {
   height: 100% !important;
 }
 
@@ -28,7 +28,11 @@ html,body {
 }
 
 .carousel{
-  height: 750px;
+  height: 2000px;
+}
+
+.active{
+  height: auto !important;
 }
 
 /* hr {
