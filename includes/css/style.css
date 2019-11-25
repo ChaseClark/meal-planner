@@ -29,6 +29,7 @@ html,body, #content {
 
 .carousel{
   height: 2000px;
+  overflow: visible;
 }
 
 .active{

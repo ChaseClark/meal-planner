@@ -26,10 +26,6 @@
     
     // IF there are any results, the username is already taken
     if($count > 0) {
-        //session_register("myusername");
-        //$_SESSION['login_user'] = $myusername;
-        //$_SESSION['id'] = $row["id"];
-        //header("location: index.php");
         $errors[] = "Username is already taken";
     }
   }
