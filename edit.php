@@ -206,7 +206,7 @@ function loadNewSection($meal_type){
         <div class="row">
           <div class="input-field col s12">
             <textarea id="instructions'.$meal_type.'" type="text" class="validate materialize-textarea" name="instructions'.$meal_type.'"></textarea>
-            <label for="instructions'.$meal_type.'">Instructions (separate with comma)</label>
+            <label for="instructions'.$meal_type.'">Instructions</label>
           </div>
         </div>
         <div class="row">
@@ -288,7 +288,7 @@ function loadSavedSection($meal_type, $r_id){
         <div class="row">
           <div class="input-field col s12">
             <textarea id="instructions'.$meal_type.'" type="text" class="validate materialize-textarea" name="instructions'.$meal_type.'"></textarea>
-            <label for="instructions'.$meal_type.'">Instructions (separate with comma)</label>
+            <label for="instructions'.$meal_type.'">Instructions</label>
           </div>
         </div>
         <div class="row">
@@ -306,7 +306,7 @@ function loadSavedSection($meal_type, $r_id){
       else {
         // this is custom
         // we are adding html "value" fields here to prefill the data from db
-        echo '<div id="new'.$meal_type.'" class="col s12 card-panel grey lighten-5">
+        echo '<label id="new'.$meal_type.'" class="col s12 card-panel grey lighten-5">
         <div class="row">
           <div class="input-field col s12">
             <input id="name'.$meal_type.'" type="text" class="validate" name="name'.$meal_type.'" value="'.$t_row['name'].'">
@@ -319,19 +319,19 @@ function loadSavedSection($meal_type, $r_id){
               <label for="ingredients'.$meal_type.'">Ingredients (separate with comma)</label>
             </div>
         </div>
-        <div class="row">
-          <div class="input-field col s12">
+        <label class="row">
+          <label class="input-field col s12">
             <textarea id="instructions'.$meal_type.'" type="text" class="validate materialize-textarea" name="instructions'.$meal_type.'">'.$t_row['instructions'].'</textarea>
-            <label for="instructions'.$meal_type.'">Instructions (separate with comma)</label>
-          </div>
-        </div>
+            <label for="instructions'.$meal_type.'">Instructions</label>
+          </label>
+        </label>
         <div class="row">
             <div class="input-field col s12">
               <input id="calories'.$meal_type.'" type="number" class="validate" name="calories'.$meal_type.'" min="0" max="9999" step="1" value="'.$t_row['calories'].'">
               <label for="calories'.$meal_type.'">Calories (Whole Number)</label>
             </div>
         </div>
-          </div>
+          </label>
 
         </div>
 

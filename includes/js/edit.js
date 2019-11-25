@@ -37,14 +37,14 @@
 
         $('.card-panel .input-field input').keyup(function() {
             var value = $(this).val();
-            value = value.replace(/[^a-z0-9\s]/gi, '');
+            value = value.replace(/[^a-z0-9\s,]/gi, '');
             $(this).val(value);
         })
         .keyup();
 
         $('.card-panel .input-field textarea').keyup(function() {
             var value = $(this).val();
-            value = value.replace(/[^a-z0-9\s]/gi, '');
+            value = value.replace(/[^a-z0-9\s,.]/gi, '');
             $(this).val(value);
         })
         .keyup();
