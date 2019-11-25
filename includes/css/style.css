@@ -36,6 +36,11 @@ html,body, #content {
   height: auto !important;
 }
 
+/* Overwrite fixed action button so it fits with our card */
+.fixed-action-btn{
+  bottom: auto;
+}
+
 /* hr {
   border-top: 1px dotted #F44336 !important;
 } */

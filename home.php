@@ -45,8 +45,16 @@ $username =$_SESSION['login_user'];
                         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                             echo '
                             <div class="card hoverable carousel-item">
-                            <a href="edit.php?meals_id='.$row['meals_id'].'" class="btn-floating right waves-effect waves-light teal accent-4"><i
-                                    class="material-icons">edit</i></a>
+                            <div class="fixed-action-btn">
+                            <a class="btn-floating btn-large purple darken-2">
+                              <i class="large material-icons">menu</i>
+                            </a>
+                            <ul>
+                              <li><a href="delete.php?delete_id='.$row['meals_id'].'" class="btn-floating red"><i class="material-icons">delete</i></a></li>
+                              <li><a href="edit.php?meals_id='.$row['meals_id'].'" class="btn-floating teal accent-4"><i
+                              class="material-icons">edit</i></a></li>
+                            </ul>
+                          </div>
                             <div class="card-content">
                                 <span id="card0" class="card-title">'.
                                 $row['date'].
@@ -141,38 +149,11 @@ $username =$_SESSION['login_user'];
                         }
                         mysqli_close($db);
                     }else {
-                        echo "Nothing found.";
+                        echo "<br/>
+                        <h3>Nothing found.<h3>";
                     }
 
                 ?>
-
-
-                <!-- '<div id="breakfast'.$row['meals_id'].'">Breakfast</div>'
-                <div id="lunch'.$row['meals_id'].'">Lunch</div>
-                <div id="dinner'.$row['meals_id'].'">Dinner</div> -->
-
-
-            <!--
-                    <div class="card hoverable carousel-item">
-                        <a href="edit.php" class="btn-floating right waves-effect waves-light teal accent-4"><i
-                                class="material-icons">edit</i></a>
-                        <div class="card-content">
-                            <span id="card0" class="card-title">change me</span>
-                            <p>Total Calories: 2000</p>
-                        </div>
-                        <div class="card-tabs">
-                            <ul class="tabs tabs-fixed-width">
-                                <li class="tab"><a href="#breakfast0">Breakfast</a></li>
-                                <li class="tab"><a href="#lunch0">Lunch</a></li>
-                                <li class="tab"><a href="#dinner0">Dinner</a></li>
-                            </ul>
-                        </div>
-                        <div class="card-content grey lighten-2">
-                            <div id="breakfast0">Breakfast</div>
-                            <div id="lunch0">Lunch</div>
-                            <div id="dinner0">Dinner</div>
-                        </div>
-                    </div>  -->
             </div>
         </div>
     </div>
