@@ -9,6 +9,7 @@
 
 html,body, #content {
   height: 100% !important;
+  overflow-x: hidden;
 }
 
 .icon-block {
